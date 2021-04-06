@@ -22,7 +22,7 @@ class NavBar extends Component {
         </Link>
         {topics.map((topic) => {
           return (
-            <Link to={`/${topic.slug}`} className="nav-btn">
+            <Link to={`/${topic.slug}`} className="nav-btn" key={topic.slug}>
               {topic.slug}
             </Link>
           );

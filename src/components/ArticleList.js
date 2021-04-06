@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { getArticles } from '../api';
 
 class ArticleList extends Component {
   state = {
@@ -7,15 +8,23 @@ class ArticleList extends Component {
   };
 
   componentDidMount() {
-    console.log('mounto');
+    getArticles().then((articles) => {
+      this.setState({ articles });
+    });
   }
   render() {
+    const { articles } = this.state;
     return (
-      <div className="content">
-        <p> Article</p>
-        <p> Article</p>
-        <p> Article</p>
-      </div>
+      <section className="article-list">
+        {articles.map((article) => {
+          return (
+            <div className="article-card" key={article.article_id}>
+              <p> {article.title}</p>
+              <p>{article.created_at.slice(0, 10)}</p>
+            </div>
+          );
+        })}
+      </section>
     );
   }
 }
