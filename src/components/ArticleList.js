@@ -1,3 +1,4 @@
+import { Link } from '@reach/router';
 import React, { Component } from 'react';
 import { getArticles } from '../api';
 import Loader from './Loader';
@@ -31,7 +32,7 @@ class ArticleList extends Component {
           const { article_id, title, created_at } = article;
           return (
             <div className="article-card" key={article_id}>
-              <p> {title}</p>
+              <Link to={`/articles/${article_id}`}> {title}</Link>
               <p>{created_at.slice(0, 10)}</p>
             </div>
           );
