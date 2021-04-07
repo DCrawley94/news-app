@@ -27,10 +27,12 @@ class ArticleList extends Component {
     ) : (
       <section className="article-list">
         {articles.map((article) => {
+          //console.log(article);
+          const { article_id, title, created_at } = article;
           return (
-            <div className="article-card" key={article.article_id}>
-              <p> {article.title}</p>
-              <p>{article.created_at.slice(0, 10)}</p>
+            <div className="article-card" key={article_id}>
+              <p> {title}</p>
+              <p>{created_at.slice(0, 10)}</p>
             </div>
           );
         })}

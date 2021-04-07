@@ -6,4 +6,4 @@ exports.queryCleaner = (queryObj) => {
     }
   }
   return newQuery;
-};
+}; //didn't need this in the end
