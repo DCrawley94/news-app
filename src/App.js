@@ -9,7 +9,6 @@ function App() {
   return (
     <main className="App">
       <NavBar className="NavBar" />
-      {/* <Title className="Title" /> */}
       <Router className="Content">
         <ArticleList path="/" className="ArticleList" />
         <ArticleList path="/:topic" className="ArticleList" />
