@@ -57,10 +57,10 @@ class SingleArticle extends Component {
           </div>
           <p>{body}</p>
           <p>{comment_count} comments</p>
-          <ul>
+          <ul className="comment-list">
             {comments.map(({ author, created_at, votes, body }) => {
               return (
-                <li>
+                <li className="comment-card">
                   <CommentCard
                     author={author}
                     created_at={created_at}
