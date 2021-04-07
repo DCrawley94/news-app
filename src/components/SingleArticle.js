@@ -1,11 +1,12 @@
-import { Link } from '@reach/router';
 import React, { Component } from 'react';
 import { getSingleArticle } from '../api';
 import Loader from './Loader';
+import Title from './Title';
 
 class SingleArticle extends Component {
   state = {
     article: {},
+    comments: {},
     isLoading: true
   };
 
@@ -32,11 +33,13 @@ class SingleArticle extends Component {
       topic,
       votes
     } = this.state.article;
-    console.log(typeof created_at);
+    console.log(Title);
+
     return isLoading ? (
       <Loader />
     ) : (
       <main>
+        <Title title="{this.props.topic}" />
         <h2>{title}</h2>
         <div class="article-info">
           <p>{author}</p>

@@ -2,6 +2,7 @@ import { Link } from '@reach/router';
 import React, { Component } from 'react';
 import { getArticles } from '../api';
 import Loader from './Loader';
+import Title from './Title';
 
 class ArticleList extends Component {
   state = {
@@ -27,8 +28,8 @@ class ArticleList extends Component {
       <Loader />
     ) : (
       <section className="article-list">
+        <Title title={this.props.topic} />
         {articles.map((article) => {
-          //console.log(article);
           const { article_id, title, created_at } = article;
           return (
             <div className="article-card" key={article_id}>
@@ -43,7 +44,10 @@ class ArticleList extends Component {
 
   getArticles(topic) {
     getArticles(topic).then((articles) => {
-      this.setState({ articles: articles, isLoading: false });
+      this.setState({
+        articles: articles,
+        isLoading: false
+      });
     });
   }
 }

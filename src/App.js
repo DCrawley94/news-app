@@ -2,7 +2,6 @@ import { Router } from '@reach/router';
 import './App.css';
 import NavBar from './components/NavBar';
 import ArticleList from './components/ArticleList';
-import Title from './components/Title';
 import SingleArticle from './components/SingleArticle';
 import ErrorPage from './components/ErrorPage';
 
@@ -10,7 +9,7 @@ function App() {
   return (
     <main className="App">
       <NavBar className="NavBar" />
-      <Title className="Title" />
+      {/* <Title className="Title" /> */}
       <Router className="Content">
         <ArticleList path="/" className="ArticleList" />
         <ArticleList path="/:topic" className="ArticleList" />
