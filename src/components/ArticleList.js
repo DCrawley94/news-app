@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { getArticles } from '../api';
+import Loader from './Loader';
 
 class ArticleList extends Component {
   state = {
@@ -8,13 +9,22 @@ class ArticleList extends Component {
   };
 
   componentDidMount() {
-    getArticles().then((articles) => {
-      this.setState({ articles });
-    });
+    const { topic } = this.props;
+    this.getArticles(topic);
   }
+
+  componentDidUpdate(prevProps) {
+    const { topic } = this.props;
+    if (topic !== prevProps.topic) {
+      this.getArticles(topic);
+    }
+  }
+
   render() {
-    const { articles } = this.state;
-    return (
+    const { articles, isLoading } = this.state;
+    return isLoading ? (
+      <Loader />
+    ) : (
       <section className="article-list">
         {articles.map((article) => {
           return (
@@ -26,6 +36,12 @@ class ArticleList extends Component {
         })}
       </section>
     );
+  }
+
+  getArticles(topic) {
+    getArticles(topic).then((articles) => {
+      this.setState({ articles: articles, isLoading: false });
+    });
   }
 }
 

@@ -9,8 +9,9 @@ function App() {
     <main className="App">
       <NavBar className="NavBar" />
       <Title className="Title" />
-      <Router>
+      <Router className="Content">
         <ArticleList path="/" className="ArticleList" />
+        <ArticleList path="/:topic" className="ArticleList" />
       </Router>
     </main>
   );
