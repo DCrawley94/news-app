@@ -3,6 +3,7 @@ import { getSingleArticlePage } from '../api';
 import Loader from './Loader';
 import Title from './Title';
 import ErrorPage from './ErrorPage';
+import CommentCard from './CommentCard';
 
 class SingleArticle extends Component {
   state = {
@@ -25,7 +26,7 @@ class SingleArticle extends Component {
   }
 
   render() {
-    const { isLoading, err } = this.state;
+    const { isLoading, err, comments, article } = this.state;
     const {
       //   article_id,
       author,
@@ -35,7 +36,7 @@ class SingleArticle extends Component {
       title,
       topic,
       votes
-    } = this.state.article;
+    } = article;
 
     if (isLoading) return <Loader />;
     else if (err) {
@@ -45,7 +46,6 @@ class SingleArticle extends Component {
       } = err;
       return <ErrorPage status={status} msg={statusText} />;
     } else {
-      console.log(this.state.comments);
       return (
         <main>
           <Title title={title} />
@@ -57,6 +57,20 @@ class SingleArticle extends Component {
           </div>
           <p>{body}</p>
           <p>{comment_count} comments</p>
+          <ul>
+            {comments.map(({ author, created_at, votes, body }) => {
+              return (
+                <li>
+                  <CommentCard
+                    author={author}
+                    created_at={created_at}
+                    votes={votes}
+                    body={body}
+                  />
+                </li>
+              );
+            })}
+          </ul>
         </main>
       );
     }
