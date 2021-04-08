@@ -4,6 +4,7 @@ import Loader from './Loader';
 import Title from './Title';
 import ErrorPage from './ErrorPage';
 import CommentCard from './CommentCard';
+import Voter from './Voter';
 
 class SingleArticle extends Component {
   state = {
@@ -28,7 +29,7 @@ class SingleArticle extends Component {
   render() {
     const { isLoading, err, comments, article } = this.state;
     const {
-      //   article_id,
+      article_id,
       author,
       body,
       comment_count,
@@ -53,7 +54,7 @@ class SingleArticle extends Component {
             <p>{author}</p>
             <p>{created_at.slice(0, 10)}</p>
             <p>{topic}</p>
-            <p>{votes}</p>
+            <Voter article_id={article_id} votes={votes} />
           </div>
           <p>{body}</p>
           <p>{comment_count} comments</p>

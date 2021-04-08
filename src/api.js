@@ -30,3 +30,11 @@ export const getSingleArticlePage = (article_id) => {
     }
   );
 };
+
+export const patchArticleVotes = (article_id, inc_votes) => {
+  return newsApi
+    .patch(`/articles/${article_id}`, { inc_votes })
+    .then(({ data: { article } }) => {
+      console.log(article);
+    });
+};
