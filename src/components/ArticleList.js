@@ -1,7 +1,6 @@
 import { Link } from '@reach/router';
 import React, { Component } from 'react';
 import { getArticles } from '../api';
-import ArticleFilter from './ArticleFilter';
 import Loader from './Loader';
 import Title from './Title';
 
@@ -14,15 +13,17 @@ class ArticleList extends Component {
 
   componentDidMount() {
     const { topic } = this.props;
-    const { sort_by } = this.state;
     this.getArticles(topic);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     const { topic } = this.props;
     const { sort_by } = this.state;
     if (topic !== prevProps.topic) {
       this.getArticles(topic);
+    }
+    if (prevState.sort_by !== sort_by) {
+      this.getArticles(topic, sort_by);
     }
   }
 
@@ -38,7 +39,18 @@ class ArticleList extends Component {
     ) : (
       <section className="article-list">
         <Title title={this.props.topic} />
-        <ArticleFilter handleChange={this.handleChange} />
+
+        <div className="sort-options">
+          <h5>Sort By:</h5>
+          <button onClick={() => this.handleChange('created_at')}>
+            Most Recent
+          </button>
+          <button onClick={() => this.handleChange('comment_count')}>
+            Popular
+          </button>
+          <button onClick={() => this.handleChange('votes')}>Top Rated</button>
+        </div>
+
         {articles.map((article) => {
           const { article_id, title, created_at } = article;
           return (
@@ -52,13 +64,16 @@ class ArticleList extends Component {
     );
   }
 
-  getArticles(topic) {
-    getArticles(topic).then((articles) => {
+  getArticles(topic, sort_by) {
+    getArticles(topic, sort_by).then((articles) => {
       this.setState({
         articles: articles,
         isLoading: false
       });
     });
+    // .catch((err) => {
+    //   console.log(err);
+    // });
   }
 }
 
