@@ -5,13 +5,16 @@ import Title from './Title';
 import ErrorPage from './ErrorPage';
 import CommentCard from './CommentCard';
 import Voter from './Voter';
+import AddComment from './AddComment';
 
 class SingleArticle extends Component {
   state = {
     article: {},
     comments: {},
     isLoading: true,
-    err: null
+    err: null,
+    loggedIn: true,
+    username: 'tickle122'
   };
 
   componentDidMount() {
@@ -27,7 +30,14 @@ class SingleArticle extends Component {
   }
 
   render() {
-    const { isLoading, err, comments, article } = this.state;
+    const {
+      isLoading,
+      err,
+      comments,
+      article,
+      loggedIn,
+      username
+    } = this.state;
     const {
       article_id,
       author,
@@ -56,6 +66,11 @@ class SingleArticle extends Component {
           </div>
           <p>{body}</p>
           <p>{comment_count} comments</p>
+          <AddComment
+            loggedIn={loggedIn}
+            username={username}
+            article_id={article_id}
+          />
           <ul className="comment-list">
             {comments.map(({ author, created_at, votes, body }) => {
               return (
@@ -65,6 +80,7 @@ class SingleArticle extends Component {
                     created_at={created_at}
                     votes={votes}
                     body={body}
+                    username={username}
                   />
                 </li>
               );
