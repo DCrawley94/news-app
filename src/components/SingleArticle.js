@@ -39,12 +39,10 @@ class SingleArticle extends Component {
       votes
     } = article;
 
-    if (isLoading) return <Loader />;
-    else if (err) {
-      const {
-        response: { status },
-        response: { statusText }
-      } = err;
+    if (isLoading) {
+      return <Loader />;
+    } else if (err) {
+      const { status, statusText } = err.response;
       return <ErrorPage status={status} msg={statusText} />;
     } else {
       return (
