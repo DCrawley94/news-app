@@ -1,8 +1,8 @@
-import { Link } from '@reach/router';
 import React, { Component } from 'react';
 import { getArticles } from '../api';
 import ArticleList from './ArticleList';
 import Loader from './Loader';
+import Sorter from './Sorter';
 import Title from './Title';
 
 class MainPage extends Component {
@@ -25,32 +25,25 @@ class MainPage extends Component {
     }
   }
 
-  handleChange(sort_by) {
-    this.setState({ sort_by });
-  }
+  handleChange = (option) => {
+    this.setState({ sort_by: option });
+  };
 
   render() {
     const { articles, isLoading } = this.state;
     const { loggedIn, username, topic } = this.props;
-
-    console.log(loggedIn, username);
+    const sortByOptions = ['created_at', 'comment_count', 'votes'];
 
     return isLoading ? (
       <Loader />
     ) : (
       <section className="main-page">
         <Title title={topic} />
+        <Sorter
+          sortByOptions={sortByOptions}
+          handleChange={(e, option) => this.handleChange(e, option)}
+        />
 
-        <div className="sort-options">
-          <h5>Sort By:</h5>
-          <button onClick={() => this.handleChange('created_at')}>
-            Most Recent
-          </button>
-          <button onClick={() => this.handleChange('comment_count')}>
-            Popular
-          </button>
-          <button onClick={() => this.handleChange('votes')}>Top Rated</button>
-        </div>
         <ArticleList articles={articles} />
       </section>
     );

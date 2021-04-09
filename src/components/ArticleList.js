@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from '@reach/router';
 
 const ArticleList = ({ articles }) => {
-  console.log(articles, '<-- in articleList');
   return (
     <section className="article-list">
       {articles.map((article) => {
