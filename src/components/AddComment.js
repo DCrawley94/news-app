@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { postComment } from '../api';
 
 class AddComment extends Component {
   state = {
@@ -19,11 +20,23 @@ class AddComment extends Component {
     this.setState({ commentBody: event.target.value });
   }
 
+  handleSubmit(event) {
+    event.preventDefault();
+    const { commentBody, username, article_id } = this.state;
+    const commentToPost = {
+      username: username,
+      body: commentBody
+    };
+    postComment(article_id, commentToPost).then((newComment) => {
+      this.setState({ commentBody: '' });
+    });
+  }
+
   render() {
-    const { loggedIn, username, article_id, commentBody } = this.state;
+    const { loggedIn } = this.state;
     if (loggedIn) {
       return (
-        <form>
+        <form onSubmit={(event) => this.handleSubmit(event)}>
           <label>
             Share Your Thoughts!
             <input

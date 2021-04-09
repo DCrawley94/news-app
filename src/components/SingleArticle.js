@@ -38,6 +38,14 @@ class SingleArticle extends Component {
     }
   }
 
+  addPostedComment ( newComment ) {
+    this.setState( ( currState ) => {
+      return {
+        comments: [newComment, ...currState.comments]
+      }
+    })
+  }
+
   render() {
     const {
       isLoading,
@@ -60,7 +68,8 @@ class SingleArticle extends Component {
 
     if (isLoading) {
       return <Loader />;
-    } else if (err) {
+    }
+    if ( err ) {
       const { status, statusText } = err.response;
       return <ErrorPage status={status} msg={statusText} />;
     } else {

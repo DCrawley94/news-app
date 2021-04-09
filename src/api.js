@@ -41,3 +41,13 @@ export const patchArticleVotes = (article_id, inc_votes) => {
       console.log(article);
     });
 };
+
+export const postComment = (article_id, commentToPost) => {
+  console.log(commentToPost, '<--- in API file');
+  return newsApi
+    .post(`/articles/${article_id}/comments`, commentToPost)
+    .then(({ data: { comment } }) => {
+      console.log(comment);
+      return comment;
+    });
+};
