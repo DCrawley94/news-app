@@ -100,6 +100,7 @@ class SingleArticle extends Component {
                     votes={votes}
                     body={body}
                     username={username}
+                    comment_id={comment_id}
                   />
                 </li>
               );
