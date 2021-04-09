@@ -3,12 +3,12 @@ import { postComment } from '../api';
 
 class AddComment extends Component {
   state = {
-    commentBody: ''
+    commentBody: '',
+    err: null
   };
 
-  componentDidUpdate (prevState) {
+  componentDidUpdate(prevState) {
     if (prevState.commentBody !== this.state.commentBody) {
-      
     }
   }
   handleChange(event) {
@@ -26,25 +26,26 @@ class AddComment extends Component {
 
     postComment(article_id, commentToPost)
       .then((newComment) => {
-
         this.setState({ commentBody: '' });
         addPostedComment(newComment);
       })
       .catch((err) => {
-        console.dir(err);
+        this.setState({ err });
       });
   }
 
   render() {
     const { loggedIn } = this.props;
-    const {commentBody} = this.state
+    const { commentBody, err } = this.state;
+
+    if (err) return <h4>Cannot Post Comments At This Time</h4>;
     if (loggedIn) {
       return (
         <form onSubmit={(event) => this.handleSubmit(event)}>
           <label>
             Share Your Thoughts!
             <input
-              value = {commentBody}
+              value={commentBody}
               type="text"
               id="commentBody"
               onChange={(event) => this.handleChange(event)}
