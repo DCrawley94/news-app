@@ -1,7 +1,7 @@
 import { Router } from '@reach/router';
 import './App.css';
 import NavBar from './components/NavBar';
-import ArticleList from './components/ArticleList';
+import MainPage from './components/MainPage';
 import SingleArticle from './components/SingleArticle';
 import ErrorPage from './components/ErrorPage';
 
@@ -10,9 +10,24 @@ function App() {
     <main className="App">
       <NavBar className="NavBar" />
       <Router className="Content">
-        <ArticleList path="/" className="ArticleList" />
-        <ArticleList path="/:topic" className="ArticleList" />
-        <SingleArticle path="/articles/:article_id" className="SingleArticle" />
+        <MainPage
+          path="/"
+          className="main-page"
+          loggedIn={true}
+          username="tickle122"
+        />
+        <MainPage
+          path="/:topic"
+          className="maine-page"
+          loggedIn={true}
+          username="tickle122"
+        />
+        <SingleArticle
+          path="/articles/:article_id"
+          className="SingleArticle"
+          loggedIn={true}
+          username="tickle122"
+        />
         <ErrorPage default status={404} msg={'Oh heck nothing here'} />
       </Router>
     </main>

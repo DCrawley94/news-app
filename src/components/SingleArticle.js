@@ -12,9 +12,7 @@ class SingleArticle extends Component {
     article: {},
     comments: {},
     isLoading: true,
-    err: null,
-    loggedIn: true,
-    username: 'tickle122'
+    err: null
   };
 
   componentDidMount() {
@@ -47,14 +45,8 @@ class SingleArticle extends Component {
   };
 
   render() {
-    const {
-      isLoading,
-      err,
-      comments,
-      article,
-      loggedIn,
-      username
-    } = this.state;
+    const { loggedIn, username } = this.props;
+    const { isLoading, err, comments, article } = this.state;
     const {
       article_id,
       author,
@@ -69,46 +61,47 @@ class SingleArticle extends Component {
     if (isLoading) {
       return <Loader />;
     }
+
     if (err) {
       const { status, statusText } = err.response;
       return <ErrorPage status={status} msg={statusText} />;
-    } else {
-      return (
-        <main>
-          <Title title={title} />
-          <div className="article-info">
-            <p>{author}</p>
-            <p>{created_at.slice(0, 10)}</p>
-            <p>{topic}</p>
-            <Voter article_id={article_id} votes={votes} />
-          </div>
-          <p>{body}</p>
-          <p>{comment_count} comments</p>
-          <AddComment
-            loggedIn={loggedIn}
-            username={username}
-            article_id={article_id}
-            addPostedComment={(newComment) => this.addPostedComment(newComment)}
-          />
-          <ul className="comment-list">
-            {comments.map(({ author, created_at, votes, body, comment_id }) => {
-              return (
-                <li key={comment_id} className="comment-card">
-                  <CommentCard
-                    author={author}
-                    created_at={created_at}
-                    votes={votes}
-                    body={body}
-                    username={username}
-                    comment_id={comment_id}
-                  />
-                </li>
-              );
-            })}
-          </ul>
-        </main>
-      );
     }
+
+    return (
+      <main>
+        <Title title={title} />
+        <div className="article-info">
+          <p>{author}</p>
+          <p>{created_at.slice(0, 10)}</p>
+          <p>{topic}</p>
+          <Voter article_id={article_id} votes={votes} />
+        </div>
+        <p>{body}</p>
+        <p>{comment_count} comments</p>
+        <AddComment
+          loggedIn={loggedIn}
+          username={username}
+          article_id={article_id}
+          addPostedComment={(newComment) => this.addPostedComment(newComment)}
+        />
+        <ul className="comment-list">
+          {comments.map(({ author, created_at, votes, body, comment_id }) => {
+            return (
+              <li key={comment_id} className="comment-card">
+                <CommentCard
+                  author={author}
+                  created_at={created_at}
+                  votes={votes}
+                  body={body}
+                  username={username}
+                  comment_id={comment_id}
+                />
+              </li>
+            );
+          })}
+        </ul>
+      </main>
+    );
   }
 }
 
