@@ -19,10 +19,7 @@ class ArticleList extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { topic } = this.props;
     const { sort_by } = this.state;
-    if (topic !== prevProps.topic) {
-      this.getArticles(topic);
-    }
-    if (prevState.sort_by !== sort_by) {
+    if (topic !== prevProps.topic || prevState.sort_by !== sort_by) {
       this.getArticles(topic, sort_by);
     }
   }
@@ -65,15 +62,16 @@ class ArticleList extends Component {
   }
 
   getArticles(topic, sort_by) {
-    getArticles(topic, sort_by).then((articles) => {
-      this.setState({
-        articles: articles,
-        isLoading: false
+    getArticles(topic, sort_by)
+      .then((articles) => {
+        this.setState({
+          articles: articles,
+          isLoading: false
+        });
+      })
+      .catch((err) => {
+        console.dir(err);
       });
-    });
-    // .catch((err) => {
-    //   console.log(err);
-    // });
   }
 }
 

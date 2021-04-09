@@ -38,13 +38,13 @@ class SingleArticle extends Component {
     }
   }
 
-  addPostedComment ( newComment ) {
-    this.setState( ( currState ) => {
+  addPostedComment = (newComment) => {
+    this.setState((currState) => {
       return {
         comments: [newComment, ...currState.comments]
-      }
-    })
-  }
+      };
+    });
+  };
 
   render() {
     const {
@@ -69,7 +69,7 @@ class SingleArticle extends Component {
     if (isLoading) {
       return <Loader />;
     }
-    if ( err ) {
+    if (err) {
       const { status, statusText } = err.response;
       return <ErrorPage status={status} msg={statusText} />;
     } else {
@@ -88,11 +88,12 @@ class SingleArticle extends Component {
             loggedIn={loggedIn}
             username={username}
             article_id={article_id}
+            addPostedComment={(newComment) => this.addPostedComment(newComment)}
           />
           <ul className="comment-list">
-            {comments.map(({ author, created_at, votes, body }) => {
+            {comments.map(({ author, created_at, votes, body, comment_id }) => {
               return (
-                <li className="comment-card">
+                <li key={comment_id} className="comment-card">
                   <CommentCard
                     author={author}
                     created_at={created_at}

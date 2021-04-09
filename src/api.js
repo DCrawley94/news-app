@@ -35,19 +35,13 @@ export const getSingleArticleComments = (article_id) => {
 };
 
 export const patchArticleVotes = (article_id, inc_votes) => {
-  return newsApi
-    .patch(`/articles/${article_id}`, { inc_votes })
-    .then(({ data: { article } }) => {
-      console.log(article);
-    });
+  return newsApi.patch(`/articles/${article_id}`, { inc_votes });
 };
 
 export const postComment = (article_id, commentToPost) => {
-  console.log(commentToPost, '<--- in API file');
   return newsApi
     .post(`/articles/${article_id}/comments`, commentToPost)
     .then(({ data: { comment } }) => {
-      console.log(comment);
       return comment;
     });
 };
