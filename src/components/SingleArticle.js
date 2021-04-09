@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getSingleArticlePage } from '../api';
+import { getSingleArticle, getSingleArticleComments } from '../api';
 import Loader from './Loader';
 import Title from './Title';
 import ErrorPage from './ErrorPage';
@@ -19,7 +19,16 @@ class SingleArticle extends Component {
 
   componentDidMount() {
     const { article_id } = this.props;
-    this.getSingleArticlePage(article_id);
+    Promise.all([
+      getSingleArticle(article_id),
+      getSingleArticleComments(article_id)
+    ])
+      .then(([article, comments]) => {
+        this.setState({ article, comments, isLoading: false });
+      })
+      .catch((err) => {
+        this.setState({ err, isLoading: false });
+      });
   }
 
   componentDidUpdate(prevProps) {
@@ -89,16 +98,6 @@ class SingleArticle extends Component {
         </main>
       );
     }
-  }
-
-  getSingleArticlePage(article_id) {
-    getSingleArticlePage(article_id)
-      .then(({ article, comments }) => {
-        this.setState({ article, comments, isLoading: false });
-      })
-      .catch((err) => {
-        this.setState({ err, isLoading: false });
-      });
   }
 }
 

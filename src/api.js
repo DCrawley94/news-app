@@ -18,17 +18,20 @@ export const getArticles = (topic, sort_by) => {
     });
 };
 
-export const getSingleArticlePage = (article_id) => {
-  const promise1 = newsApi.get(`/articles/${article_id}`);
-  const promise2 = newsApi.get(`/articles/${article_id}/comments`);
+export const getSingleArticle = (article_id) => {
+  return newsApi
+    .get(`/articles/${article_id}`)
+    .then(({ data: { article } }) => {
+      return article;
+    });
+};
 
-  return Promise.all([promise1, promise2]).then(
-    ([articleData, commentData]) => {
-      const { article } = articleData.data;
-      const { comments } = commentData.data;
-      return { article, comments };
-    }
-  );
+export const getSingleArticleComments = (article_id) => {
+  return newsApi
+    .get(`/articles/${article_id}/comments`)
+    .then(({ data: { comments } }) => {
+      return comments;
+    });
 };
 
 export const patchArticleVotes = (article_id, inc_votes) => {
