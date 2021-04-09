@@ -6,6 +6,7 @@ import ErrorPage from './ErrorPage';
 import CommentCard from './CommentCard';
 import Voter from './Voter';
 import AddComment from './AddComment';
+import Sorter from './Sorter';
 
 class SingleArticle extends Component {
   state = {
@@ -57,6 +58,10 @@ class SingleArticle extends Component {
       topic,
       votes
     } = article;
+    const sortByOptions = [
+      { name: 'Newest First', option: 'created_at' },
+      { name: 'Top Rated', option: 'votes' }
+    ];
 
     if (isLoading) {
       return <Loader />;
@@ -74,7 +79,7 @@ class SingleArticle extends Component {
           <p>{author}</p>
           <p>{created_at.slice(0, 10)}</p>
           <p>{topic}</p>
-          <Voter article_id={article_id} votes={votes} />
+          <Voter id={article_id} votes={votes} type='article'/>
         </div>
         <p>{body}</p>
         <p>{comment_count} comments</p>
@@ -83,6 +88,13 @@ class SingleArticle extends Component {
           username={username}
           article_id={article_id}
           addPostedComment={(newComment) => this.addPostedComment(newComment)}
+        />
+        <h3>Comments</h3>
+        <Sorter
+          sortByOptions={sortByOptions}
+          handleChange={(option) => {
+            console.log(option);
+          }}
         />
         <ul className="comment-list">
           {comments.map(({ author, created_at, votes, body, comment_id }) => {

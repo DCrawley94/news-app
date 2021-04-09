@@ -32,7 +32,11 @@ class MainPage extends Component {
   render() {
     const { articles, isLoading } = this.state;
     const { loggedIn, username, topic } = this.props;
-    const sortByOptions = ['created_at', 'comment_count', 'votes'];
+    const sortByOptions = [
+      { name: 'Newest First', option: 'created_at' },
+      { name: 'Popular', option: 'comment_count' },
+      { name: 'Top Rated', option: 'votes' }
+    ];
 
     return isLoading ? (
       <Loader />
@@ -41,7 +45,7 @@ class MainPage extends Component {
         <Title title={topic} />
         <Sorter
           sortByOptions={sortByOptions}
-          handleChange={(e, option) => this.handleChange(e, option)}
+          handleChange={(option) => this.handleChange(option)}
         />
 
         <ArticleList articles={articles} />

@@ -4,15 +4,14 @@ const Sorter = ({ sortByOptions, handleChange }) => {
   return (
     <div>
       <h5>Sort By:</h5>
-      {sortByOptions.map((option) => {
-
+      {sortByOptions.map(({ name, option }) => {
         return (
           <button
-            key={option}
+            key={name}
             value={option}
             onClick={() => handleChange(option)}
           >
-            {option}
+            {name}
           </button>
         );
       })}

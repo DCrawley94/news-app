@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { deleteComment } from '../api';
+import Voter from './Voter';
 
 class CommentCard extends Component {
   state = {
@@ -14,7 +15,7 @@ class CommentCard extends Component {
   }
 
   render() {
-    const { body, author, votes, created_at, username } = this.props;
+    const { body, author, votes, created_at, username, comment_id } = this.props;
     const { deleted } = this.state;
 
     if (deleted) {
@@ -29,6 +30,7 @@ class CommentCard extends Component {
           {username === author ? (
             <button onClick={() => this.handleDelete()}>Delete Comment</button>
           ) : null}
+          <Voter id={comment_id} votes={votes} type="comment" />
         </div>
       );
     }

@@ -49,3 +49,7 @@ export const postComment = (article_id, commentToPost) => {
 export const deleteComment = (comment_id) => {
   return newsApi.delete(`/comments/${comment_id}`);
 };
+
+export const patchCommentVotes = (comment_id, inc_votes) => {
+  return newsApi.patch(`/comments/${comment_id}`, { inc_votes });
+};
