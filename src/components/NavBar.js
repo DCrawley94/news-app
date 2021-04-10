@@ -17,12 +17,16 @@ class NavBar extends Component {
     const { topics } = this.state;
     return (
       <nav className="nav">
-        <Link to="/" className="nav-btn">
+        <Link to="/articles" className="nav-btn">
           Home
         </Link>
         {topics.map((topic) => {
           return (
-            <Link to={`/${topic.slug}`} className="nav-btn" key={topic.slug}>
+            <Link
+              to={`/articles/${topic.slug}`}
+              className="nav-btn"
+              key={topic.slug}
+            >
               {topic.slug}
             </Link>
           );

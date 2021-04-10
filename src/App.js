@@ -11,24 +11,24 @@ function App() {
       <NavBar className="NavBar" />
       <Router className="Content">
         <MainPage
-          path="/"
+          path="/articles"
           className="main-page"
           loggedIn={true}
           username="tickle122"
         />
         <MainPage
-          path="/:topic"
+          path="/articles/:topic"
           className="maine-page"
           loggedIn={true}
           username="tickle122"
         />
         <SingleArticle
-          path="/articles/:article_id"
+          path="/articles/article/:article_id"
           className="SingleArticle"
           loggedIn={true}
           username="tickle122"
         />
-        <ErrorPage default status={404} msg={'Oh heck nothing here'} />
+        <ErrorPage default status={404} msg={'Oh heck, theres nothing here!'} />
       </Router>
     </main>
   );

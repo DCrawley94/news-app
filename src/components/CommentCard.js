@@ -15,7 +15,14 @@ class CommentCard extends Component {
   }
 
   render() {
-    const { body, author, votes, created_at, username, comment_id } = this.props;
+    const {
+      body,
+      author,
+      votes,
+      created_at,
+      username,
+      comment_id
+    } = this.props;
     const { deleted } = this.state;
 
     if (deleted) {
