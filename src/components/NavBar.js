@@ -15,6 +15,8 @@ class NavBar extends Component {
 
   render() {
     const { topics } = this.state;
+    const { loggedIn, username } = this.props;
+
     return (
       <nav className="nav">
         <Link to="/articles" className="nav-btn">
@@ -31,6 +33,14 @@ class NavBar extends Component {
             </Link>
           );
         })}
+        {loggedIn ? (
+          <h5>
+            Online:{' '}
+            <Link to={`/user/${username}`} className="nav-btn">
+              {username}
+            </Link>
+          </h5>
+        ) : null}
       </nav>
     );
   }

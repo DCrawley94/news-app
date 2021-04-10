@@ -22,7 +22,7 @@
 
 ### Login
 
-- [ ] Some indication of who is logged in
+- [✔] Some indication of who is logged in
 
 ### Articles
 
@@ -64,7 +64,7 @@
 - [✔] Well named components
 - [✔] Functional components used where possible
 - [✔] Components reused where possible (`Articles` / `Voter`...)
-- [ ] Minimal state - don't hold derivable data in state
+- [✔] Minimal state - don't hold derivable data in state
 - [✔] Set state correctly, using previous state where possible
 - [✔] Handle asynchronicity clearly (i.e. isLoading pattern)
 - [✔] Functions are DRY (`handleChange` for controlled components / api calls)
@@ -104,6 +104,6 @@
 
 - [✔] You have a `default` route but it is never being hit, because your router is always matching it with the parametric `/:topic` endpoint
 - [✔] You have reused the `ArticleList` component which is great - think about how you can reuse the `Voter` component too
-- [ ] In `AddComment`, you don't want to be setting state with values you get from props. This results in "two sources of truth" for those values and causes lots of unexpected errors
+- [✔] In `AddComment`, you don't want to be setting state with values you get from props. This results in "two sources of truth" for those values and causes lots of unexpected errors
 - [ ] Consider extracting out `CommentList` as a component - then you can clear up the `SingleArticle` and keep some state in there too!
-- [ ] I love that you made your util function even if it ended up not being needed!
+- [✔] I love that you made your util function even if it ended up not being needed!
