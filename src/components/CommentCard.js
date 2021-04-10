@@ -1,3 +1,4 @@
+import { Link } from '@reach/router';
 import React, { Component } from 'react';
 import { deleteComment } from '../api';
 import Voter from './Voter';
@@ -20,7 +21,7 @@ class CommentCard extends Component {
       author,
       votes,
       created_at,
-      username,
+      loggedInUser,
       comment_id
     } = this.props;
     const { deleted } = this.state;
@@ -30,11 +31,11 @@ class CommentCard extends Component {
     } else {
       return (
         <div className="comment-card">
-          <h5>{author}</h5>
+          <Link to={`/user/${author}`}>{author}</Link>
           <p>{created_at.slice(0, 10)}</p>
           <p>Votes: {votes}</p>
           <p>{body}</p>
-          {username === author ? (
+          {loggedInUser === author ? (
             <button onClick={() => this.handleDelete()}>Delete Comment</button>
           ) : null}
           <Voter id={comment_id} votes={votes} type="comment" />

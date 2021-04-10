@@ -3,7 +3,7 @@ import CommentCard from './CommentCard';
 import Sorter from './Sorter';
 import Loader from './Loader';
 import ErrorPage from './ErrorPage';
-import { getSingleArticleComments } from '../api';
+import { getComments } from '../api';
 
 class CommentList extends Component {
   state = {
@@ -13,18 +13,23 @@ class CommentList extends Component {
   };
 
   componentDidMount() {
-    const { article_id } = this.props;
-    getSingleArticleComments(article_id)
-      .then((comments) => {
-        this.setState({ comments, isLoading: false });
-      })
-      .catch((err) => {
-        this.setState({ err, isLoading: false });
-      });
+    const { article_id, author, type } = this.props;
+    console.log(type);
+    console.log(article_id, '<id');
+    console.log(author, '<id');
+    type === 'article'
+      ? getComments(article_id)
+          .then((comments) => {
+            this.setState({ comments, isLoading: false });
+          })
+          .catch((err) => {
+            this.setState({ err, isLoading: false });
+          })
+      : console.log('Getting User Comments');
   }
 
   render() {
-    const { username } = this.props;
+    const { loggedInUser } = this.props;
     const { comments, err, isLoading } = this.state;
     const sortByOptions = [
       { name: 'Newest First', option: 'created_at' },
@@ -57,8 +62,8 @@ class CommentList extends Component {
                   created_at={created_at}
                   votes={votes}
                   body={body}
-                  username={username}
                   comment_id={comment_id}
+                  loggedInUser={loggedInUser}
                 />
               </li>
             );

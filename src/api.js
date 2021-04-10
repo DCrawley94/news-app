@@ -10,9 +10,11 @@ export const getTopics = () => {
   });
 };
 
-export const getArticles = (topic, sort_by) => {
+export const getArticles = (topic, sort_by, author) => {
   return newsApi
-    .get('/articles', { params: { topic: topic, sort_by: sort_by } })
+    .get('/articles', {
+      params: { topic: topic, sort_by: sort_by, author: author }
+    })
     .then(({ data: { articles } }) => {
       return articles;
     });
@@ -26,7 +28,7 @@ export const getSingleArticle = (article_id) => {
     });
 };
 
-export const getSingleArticleComments = (article_id) => {
+export const getComments = (article_id) => {
   return newsApi
     .get(`/articles/${article_id}/comments`)
     .then(({ data: { comments } }) => {
@@ -52,4 +54,10 @@ export const deleteComment = (comment_id) => {
 
 export const patchCommentVotes = (comment_id, inc_votes) => {
   return newsApi.patch(`/comments/${comment_id}`, { inc_votes });
+};
+
+export const getUser = (username) => {
+  return newsApi.get(`/users/${username}`).then(({ data: { user } }) => {
+    return user;
+  });
 };

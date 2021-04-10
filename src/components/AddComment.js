@@ -17,10 +17,10 @@ class AddComment extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { username, article_id, addPostedComment } = this.props;
+    const { loggedInUser, article_id, addPostedComment } = this.props;
     const { commentBody } = this.state;
     const commentToPost = {
-      username: username,
+      username: loggedInUser,
       body: commentBody
     };
 

@@ -1,18 +1,51 @@
 import React, { Component } from 'react';
+import { getUser } from '../api';
+import ArticleList from './ArticleList';
+import ErrorPage from './ErrorPage';
+import Loader from './Loader';
 
 class User extends Component {
+  state = {
+    user: {},
+    isLoading: true,
+    err: null
+  };
+
+  componentDidMount() {
+    const { username } = this.props;
+    getUser(username)
+      .then((user) => {
+        this.setState({ user, isLoading: false });
+      })
+      .catch((err) => {
+        this.setState({ err, isLoading: false });
+      });
+  }
+
+  componentDidUpdate(prevProps) {
+    const { username } = this.props;
+    if (username !== prevProps.username) {
+      getUser(username).then((user) => {
+        this.setState({ user });
+      });
+    }
+  }
+
   render() {
-    return (
-      <div>
-        <h1> This Is Gonna Be A User Profile!</h1>
-        <p>Gonna have user picture</p>
-        <p> Gonna have users actual name</p>
-        <p>
-          {' '}
-          You're are gonna be able to look at articles and comments by a certain
-          user
-        </p>
-      </div>
+    const { loggedInUser } = this.props;
+    const { user, isLoading, err } = this.state;
+    const { avatar_url, username, name } = user;
+    return isLoading ? (
+      <Loader />
+    ) : err ? (
+      <ErrorPage status={err.response.status} msg={err.response.data.msg} />
+    ) : (
+      <main>
+        <h1> {username}'s Profile Page</h1>
+        <img src={avatar_url} alt={`${username}'s avatar`} />
+        <p>{name}</p>
+        <ArticleList username={username} />
+      </main>
     );
   }
 }

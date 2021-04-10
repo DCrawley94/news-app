@@ -42,7 +42,7 @@ class SingleArticle extends Component {
   };
 
   render() {
-    const { loggedIn, username } = this.props;
+    const { loggedIn, loggedInUser } = this.props;
     const { isLoading, err, article } = this.state;
     const {
       article_id,
@@ -77,14 +77,15 @@ class SingleArticle extends Component {
         <p>{comment_count} comments</p>
         <AddComment
           loggedIn={loggedIn}
-          username={username}
+          username={loggedInUser}
           article_id={article_id}
           addPostedComment={(newComment) => this.addPostedComment(newComment)}
         />
         <h3>Comments</h3>
         <CommentList
-          username={username}
+          loggedInUser={loggedInUser}
           article_id={article_id}
+          type="article"
         />
       </main>
     );

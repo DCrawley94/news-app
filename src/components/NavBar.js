@@ -19,7 +19,7 @@ class NavBar extends Component {
 
     return (
       <nav className="nav">
-        <Link to="/articles" className="nav-btn">
+        <Link to="/" className="nav-btn">
           Home
         </Link>
         {topics.map((topic) => {
