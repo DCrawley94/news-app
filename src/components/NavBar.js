@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from '@reach/router';
 import { getTopics } from '../api';
+import styles from './NavBar.module.css';
 
 class NavBar extends Component {
   state = {
@@ -16,17 +17,16 @@ class NavBar extends Component {
   render() {
     const { topics } = this.state;
     const { loggedIn, username } = this.props;
-
     return (
-      <nav className="nav">
-        <Link to="/" className="nav-btn">
+      <nav className={styles.nav}>
+        <Link to="/" className={styles.navBtn}>
           Home
         </Link>
         {topics.map((topic) => {
           return (
             <Link
               to={`/articles/${topic.slug}`}
-              className="nav-btn"
+              className={styles.navBtn}
               key={topic.slug}
             >
               {topic.slug}
@@ -36,9 +36,10 @@ class NavBar extends Component {
         {loggedIn ? (
           <h5>
             Online:{' '}
-            <Link to={`/user/${username}`} className="nav-btn">
+            <Link to={`/user/${username}`} className={styles.navBtnUser}>
               {username}
             </Link>
+            <div className={styles.loggedIn}>●</div>
           </h5>
         ) : null}
       </nav>

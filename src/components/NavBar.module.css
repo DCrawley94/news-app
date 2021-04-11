@@ -1,0 +1,33 @@
+.nav {
+  background-color: #e2eafc;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.navBtn {
+  margin-top: 5px;
+  font-size: 20px;
+  padding: 5px;
+  text-decoration: none;
+  background-color: #b6ccfe;
+  color: black;
+  text-transform: capitalize;
+  border-radius: 7.5px;
+}
+
+h5 {
+  display: flex;
+  padding: 5px;
+  font-size: 15px;
+  margin: 5px;
+}
+
+.navBtnUser {
+  text-decoration: none;
+}
+.loggedIn {
+  color: greenyellow;
+  margin-left: 5px;
+}
