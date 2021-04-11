@@ -9,24 +9,37 @@ class CommentList extends Component {
   state = {
     comments: {},
     isLoading: true,
-    err: null
+    err: null,
+    sort_by: null
   };
 
   componentDidMount() {
-    const { article_id, author, type } = this.props;
-    console.log(type);
-    console.log(article_id, '<id');
-    console.log(author, '<id');
-    type === 'article'
-      ? getComments(article_id)
-          .then((comments) => {
-            this.setState({ comments, isLoading: false });
-          })
-          .catch((err) => {
-            this.setState({ err, isLoading: false });
-          })
-      : console.log('Getting User Comments');
+    const { article_id } = this.props;
+    const { sort_by } = this.state;
+    this.fetchComments(article_id, sort_by);
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { article_id } = this.props;
+    const { sort_by } = this.state;
+    if (article_id !== prevProps.article_id || sort_by !== prevState.sort_by) {
+      this.fetchComments(article_id, sort_by);
+    }
+  }
+
+  fetchComments(article_id, sort_by) {
+    getComments(article_id, sort_by)
+      .then((comments) => {
+        this.setState({ comments, isLoading: false });
+      })
+      .catch((err) => {
+        this.setState({ err, isLoading: false });
+      });
+  }
+
+  handleChange = (option) => {
+    this.setState({ sort_by: option });
+  };
 
   render() {
     const { loggedInUser } = this.props;
@@ -36,22 +49,15 @@ class CommentList extends Component {
       { name: 'Top Rated', option: 'votes' }
     ];
 
-    if (isLoading) {
-      return <Loader />;
-    }
-
-    if (err) {
-      const { status, statusText } = err.response;
-      return <ErrorPage status={status} msg={statusText} />;
-    }
-
-    return (
+    return isLoading ? (
+      <Loader />
+    ) : err ? (
+      <ErrorPage status={err.response.status} msg={err.response.data.msg} />
+    ) : (
       <section className="comment-list">
         <Sorter
           sortByOptions={sortByOptions}
-          handleChange={(option) => {
-            console.log(option);
-          }}
+          handleChange={(option) => this.handleChange(option)}
         />
         <ul>
           {comments.map(({ author, created_at, votes, body, comment_id }) => {

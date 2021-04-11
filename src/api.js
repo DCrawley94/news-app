@@ -28,9 +28,10 @@ export const getSingleArticle = (article_id) => {
     });
 };
 
-export const getComments = (article_id) => {
+export const getComments = (article_id, sort_by, order) => {
+  console.log(article_id, sort_by);
   return newsApi
-    .get(`/articles/${article_id}/comments`)
+    .get(`/articles/${article_id}/comments`, { params: { sort_by } })
     .then(({ data: { comments } }) => {
       return comments;
     });
