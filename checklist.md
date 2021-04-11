@@ -48,7 +48,7 @@
 - [✔] sort comments by date created / votes
 - [ ] navigate over pages of articles (if implemented in back-end)
 - [ ] navigate over pages of comments (if implemented in back-end)
-- [ ] filter / display articles by specific user
+- [✔] filter / display articles by specific user
 - [ ] post new article
 - [ ] delete logged in user's articles
 
@@ -71,7 +71,7 @@
 - [✔] Use object destructuring where possible
 - [✔] Tidy? If not: ESLint / Prettier
 - [✔] `node_modules` git ignored
-- [ ] No `console.log`s / comments
+- [✔] No `console.log`s / comments
 - [✔] remove unnecessary files (e.g. App.test.js) - MOSTLY - don't forget to run through and remove things like `index.css` and `utils.js`
 
 ## MAKE SURE ALL TESTS ARE STILL PASSING IN BACK END
@@ -105,5 +105,5 @@
 - [✔] You have a `default` route but it is never being hit, because your router is always matching it with the parametric `/:topic` endpoint
 - [✔] You have reused the `ArticleList` component which is great - think about how you can reuse the `Voter` component too
 - [✔] In `AddComment`, you don't want to be setting state with values you get from props. This results in "two sources of truth" for those values and causes lots of unexpected errors
-- [ ] Consider extracting out `CommentList` as a component - then you can clear up the `SingleArticle` and keep some state in there too!
+- [✔] Consider extracting out `CommentList` as a component - then you can clear up the `SingleArticle` and keep some state in there too!
 - [✔] I love that you made your util function even if it ended up not being needed!

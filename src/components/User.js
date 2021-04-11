@@ -32,7 +32,6 @@ class User extends Component {
   }
 
   render() {
-    const { loggedInUser } = this.props;
     const { user, isLoading, err } = this.state;
     const { avatar_url, username, name } = user;
     return isLoading ? (
