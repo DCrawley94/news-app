@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
+import { Link } from '@reach/router';
 import { getSingleArticle } from '../api';
 import Loader from './Loader';
 import Title from './Title';
 import ErrorPage from './ErrorPage';
 import Voter from './Voter';
-import AddComment from './AddComment';
-import { Link } from '@reach/router';
 import CommentList from './CommentList';
+import styles from './SingleArticle.module.css';
 
 class SingleArticle extends Component {
   state = {
@@ -33,14 +33,6 @@ class SingleArticle extends Component {
     }
   }
 
-  addPostedComment = (newComment) => {
-    this.setState((currState) => {
-      return {
-        comments: [newComment, ...currState.comments]
-      };
-    });
-  };
-
   render() {
     const { loggedIn, loggedInUser } = this.props;
     const { isLoading, err, article } = this.state;
@@ -65,24 +57,28 @@ class SingleArticle extends Component {
     }
 
     return (
-      <main>
+      <main className={styles.articleMain}>
         <Title title={title} />
-        <div className="article-info">
-          <Link to={`/user/${author}`}>{author}</Link>
+
+        <div className={styles.articleInfo}>
+          <Link to={`/user/${author}`} className={styles.authorLink}>
+            {author}
+          </Link>
           <p>{created_at.slice(0, 10)}</p>
           <p>{topic}</p>
+        </div>
+
+        <div className={styles.articleBody}>
+          <p>{body}</p>
+        </div>
+
+        <div className={styles.articleInteraction}>
           <Voter id={article_id} votes={votes} type="article" />
         </div>
-        <p>{body}</p>
-        <p>{comment_count} comments</p>
-        <AddComment
-          loggedIn={loggedIn}
-          username={loggedInUser}
-          article_id={article_id}
-          addPostedComment={(newComment) => this.addPostedComment(newComment)}
-        />
-        <h3>Comments</h3>
+
         <CommentList
+          loggedIn={loggedIn}
+          comment_count={comment_count}
           loggedInUser={loggedInUser}
           article_id={article_id}
           type="article"

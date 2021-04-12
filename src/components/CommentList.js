@@ -3,6 +3,7 @@ import CommentCard from './CommentCard';
 import Sorter from './Sorter';
 import Loader from './Loader';
 import ErrorPage from './ErrorPage';
+import AddComment from './AddComment';
 import { getComments } from '../api';
 
 class CommentList extends Component {
@@ -37,12 +38,22 @@ class CommentList extends Component {
       });
   }
 
+  addPostedComment = (newComment) => {
+    console.log(newComment);
+    this.setState((currState) => {
+      console.log(currState);
+      return {
+        comments: [newComment, ...currState.comments]
+      };
+    });
+  };
+
   handleChange = (option) => {
     this.setState({ sort_by: option });
   };
 
   render() {
-    const { loggedInUser } = this.props;
+    const { loggedIn, loggedInUser, comment_count, article_id } = this.props;
     const { comments, err, isLoading } = this.state;
     const sortByOptions = [
       { name: 'Newest First', option: 'created_at' },
@@ -55,10 +66,18 @@ class CommentList extends Component {
       <ErrorPage status={err.response.status} msg={err.response.data.msg} />
     ) : (
       <section className="comment-list">
+        <AddComment
+          loggedIn={loggedIn}
+          username={loggedInUser}
+          article_id={article_id}
+          addPostedComment={(newComment) => this.addPostedComment(newComment)}
+        />
+        <p>{comment_count} Comments</p>
         <Sorter
           sortByOptions={sortByOptions}
           handleChange={(option) => this.handleChange(option)}
         />
+
         <ul>
           {comments.map(({ author, created_at, votes, body, comment_id }) => {
             return (

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { patchArticleVotes, patchCommentVotes } from '../api';
+import styles from './Voter.module.css';
 
 class Voter extends Component {
   state = {
@@ -10,7 +11,6 @@ class Voter extends Component {
 
   updateVoteChange(err, id, inc_votes) {
     this.setState((currentState) => {
-      console.dir(err);
       return {
         voteChange: currentState.voteChange - inc_votes,
         err: err
@@ -41,22 +41,26 @@ class Voter extends Component {
     const { voteChange, err } = this.state;
 
     if (err) {
-      return <h4>Voting Unavailable At This Time</h4>;
+      return (
+        <p className={styles.voteCount}>Voting Unavailable At This Time</p>
+      );
     } else {
       return (
-        <section>
+        <section className={styles.voter}>
           <button
+            className={styles.voterBtn}
             onClick={() => this.updateVotes(id, 1)}
             disabled={this.state.voteChange > 0 ? true : false}
           >
-            +
+            👍
           </button>
-          <p> {votes + voteChange}</p>
+          <p className={styles.voteCount}> {votes + voteChange}</p>
           <button
+            className={styles.voterBtn}
             onClick={() => this.updateVotes(id, -1)}
             disabled={this.state.voteChange < 0 ? true : false}
           >
-            -
+            👎
           </button>
         </section>
       );

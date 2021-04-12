@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { postComment } from '../api';
+import styles from './AddComment.module.css';
 
 class AddComment extends Component {
   state = {
@@ -17,10 +18,10 @@ class AddComment extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { loggedInUser, article_id, addPostedComment } = this.props;
+    const { username, article_id, addPostedComment } = this.props;
     const { commentBody } = this.state;
     const commentToPost = {
-      username: loggedInUser,
+      username: username,
       body: commentBody
     };
 
@@ -30,6 +31,7 @@ class AddComment extends Component {
         addPostedComment(newComment);
       })
       .catch((err) => {
+        console.dir(err);
         this.setState({ err });
       });
   }
@@ -38,25 +40,34 @@ class AddComment extends Component {
     const { loggedIn } = this.props;
     const { commentBody, err } = this.state;
 
-    if (err) return <h4>Cannot Post Comments At This Time</h4>;
+    if (err) return <h4>Sorry! You Cannot Post Comments At This Time</h4>;
     if (loggedIn) {
       return (
-        <form onSubmit={(event) => this.handleSubmit(event)}>
-          <label>
-            Share Your Thoughts!
-            <input
-              value={commentBody}
-              type="text"
-              id="commentBody"
-              onChange={(event) => this.handleChange(event)}
-              placeholder="Post your comment ..."
-            />
+        <form
+          onSubmit={(event) => this.handleSubmit(event)}
+          className={styles.commentForm}
+        >
+          <label htmlFor="commentBody" className={styles.commentFormLabel}>
+            Add Comment
           </label>
-          <input type="submit" value="Submit" />
+          <input
+            value={commentBody}
+            type="text"
+            id="commentBody"
+            onChange={(event) => this.handleChange(event)}
+            placeholder="Post your comment ..."
+            className={styles.commentFormInput}
+          />
+
+          <input
+            type="submit"
+            value="Submit"
+            className={styles.commentFormSubmit}
+          />
         </form>
       );
     } else {
-      return <div></div>;
+      return <h4> You Need To Log In To Post A Comment!</h4>;
     }
   }
 }
