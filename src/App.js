@@ -9,8 +9,8 @@ import User from './components/User';
 function App() {
   return (
     <main className="App">
-      <NavBar className="NavBar" loggedIn={true} username="tickle122" />
-      <Router className="Content">
+      <NavBar loggedIn={true} username="tickle122" />
+      <Router className="content">
         <MainPage path="/" className="main-page" />
         <MainPage path="/articles/:topic" className="main-page" />
         <SingleArticle

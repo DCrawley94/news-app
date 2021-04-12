@@ -6,4 +6,10 @@
 .App {
   text-align: center;
   font-family: monospace;
+  background-color: #edf2fb;
+}
+
+.content {
+  margin-left: 5%;
+  margin-right: 5%;
 }

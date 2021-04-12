@@ -1,10 +1,11 @@
 import React from 'react';
+import styles from './Title.module.css';
 
 const Title = ({ title }) => {
   if (title) {
-    return <h1 className="title"> {title} </h1>;
+    return <h1 className={styles.title}> {title} </h1>;
   } else {
-    return <h1 className="title">Welcome To NC News</h1>;
+    return <h1 className={styles.title}>Welcome To NC News</h1>;
   }
 };
 

@@ -1,13 +1,15 @@
 .nav {
-  background-color: #e2eafc;
+  background-color: #D7E3FC;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  align-items: center;
 }
 
 .navBtn {
   margin-top: 5px;
+  margin-bottom: 5px;
   font-size: 20px;
   padding: 5px;
   text-decoration: none;

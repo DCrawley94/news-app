@@ -4,6 +4,7 @@ import { getArticles } from '../api';
 import ErrorPage from './ErrorPage';
 import Loader from './Loader';
 import Sorter from './Sorter';
+import styles from './ArticleList.module.css';
 
 class ArticleList extends Component {
   state = {
@@ -62,7 +63,7 @@ class ArticleList extends Component {
           sortByOptions={sortByOptions}
           handleChange={(option) => this.handleChange(option)}
         />
-        <ul>
+        <ul className={styles.articleList}>
           {articles.map((article) => {
             const {
               article_id,
@@ -73,13 +74,27 @@ class ArticleList extends Component {
               author
             } = article;
             return (
-              <li className="article-card" key={article_id}>
-                <Link to={`/articles/article/${article_id}`}>{title}</Link>
-
-                <p>{created_at.slice(0, 10)}</p>
-                <Link to={`/user/${author}`}>{author}</Link>
-                <p>{comment_count} comments</p>
-                <p>{votes} votes</p>
+              <li className={styles.articleCard} key={article_id}>
+                <div className={styles.articleCardTitle}>
+                  <Link
+                    to={`/articles/article/${article_id}`}
+                    className={styles.articleLink}
+                  >
+                    <p>{title}</p>
+                  </Link>
+                </div>
+                <div className={styles.articleCardInfo}>
+                  <div className={styles.articleCardDetails}>
+                    <Link to={`/user/${author}`} className={styles.authorLink}>
+                      {author}
+                    </Link>
+                    <p>{created_at.slice(0, 10)}</p>
+                  </div>
+                  <div className={styles.articleCardStats}>
+                    <p>{comment_count} comments</p>
+                    <p>{votes} votes</p>
+                  </div>
+                </div>
               </li>
             );
           })}
