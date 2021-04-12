@@ -16,7 +16,7 @@
   font-weight: bold;
 }
 
-input[type='text'] {
+.commentFormInput {
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;

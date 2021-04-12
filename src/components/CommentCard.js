@@ -2,6 +2,7 @@ import { Link } from '@reach/router';
 import React, { Component } from 'react';
 import { deleteComment } from '../api';
 import Voter from './Voter';
+import styles from './CommentCard.module.css';
 
 class CommentCard extends Component {
   state = {
@@ -9,7 +10,6 @@ class CommentCard extends Component {
   };
 
   handleDelete() {
-    console.log('DELET THIS');
     deleteComment(this.props.comment_id).then(() => {
       this.setState({ deleted: true });
     });
@@ -30,15 +30,21 @@ class CommentCard extends Component {
       return <h4>Comment Successfully Deleted</h4>;
     } else {
       return (
-        <div className="comment-card">
-          <Link to={`/user/${author}`}>{author}</Link>
-          <p>{created_at.slice(0, 10)}</p>
-          <p>Votes: {votes}</p>
+        <div className={styles.commentCard}>
+          <div className={styles.commentInfo}>
+            <Link to={`/user/${author}`}>{author}</Link>
+            <p>{created_at.slice(0, 10)}</p>
+          </div>
+
           <p>{body}</p>
-          {loggedInUser === author ? (
-            <button onClick={() => this.handleDelete()}>Delete Comment</button>
-          ) : null}
-          <Voter id={comment_id} votes={votes} type="comment" />
+          <div className={styles.commentInteraction}>
+            {loggedInUser === author ? (
+              <button onClick={() => this.handleDelete()}>
+                Delete Comment
+              </button>
+            ) : null}
+            <Voter id={comment_id} votes={votes} type="comment" />
+          </div>
         </div>
       );
     }

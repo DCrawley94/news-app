@@ -5,6 +5,7 @@ import Loader from './Loader';
 import ErrorPage from './ErrorPage';
 import AddComment from './AddComment';
 import { getComments } from '../api';
+import styles from './CommentList.module.css';
 
 class CommentList extends Component {
   state = {
@@ -39,7 +40,6 @@ class CommentList extends Component {
   }
 
   addPostedComment = (newComment) => {
-    console.log(newComment);
     this.setState((currState) => {
       console.log(currState);
       return {
@@ -73,17 +73,17 @@ class CommentList extends Component {
           addPostedComment={(newComment) => this.addPostedComment(newComment)}
         />
 
-        <p>{comment_count} Comments</p>
+        <p className={styles.commentCount}>{comment_count} Comments</p>
 
         <Sorter
           sortByOptions={sortByOptions}
           handleChange={(option) => this.handleChange(option)}
         />
 
-        <ul>
+        <ul className={styles.commentList}>
           {comments.map(({ author, created_at, votes, body, comment_id }) => {
             return (
-              <li key={comment_id} className="comment-card">
+              <li key={comment_id} className={styles.CommentCard}>
                 <CommentCard
                   author={author}
                   created_at={created_at}

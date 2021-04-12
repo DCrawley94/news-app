@@ -49,7 +49,7 @@ class AddComment extends Component {
           <label htmlFor="commentBody" className={styles.commentFormLabel}>
             Add Comment
           </label>
-          <input
+          <textarea
             value={commentBody}
             type="text"
             id="commentBody"
@@ -62,6 +62,7 @@ class AddComment extends Component {
             type="submit"
             value="Submit"
             className={styles.commentFormSubmit}
+            disabled={commentBody.length > 0 ? false : true}
           />
         </form>
       );
