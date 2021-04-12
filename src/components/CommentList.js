@@ -72,7 +72,9 @@ class CommentList extends Component {
           article_id={article_id}
           addPostedComment={(newComment) => this.addPostedComment(newComment)}
         />
+
         <p>{comment_count} Comments</p>
+
         <Sorter
           sortByOptions={sortByOptions}
           handleChange={(option) => this.handleChange(option)}

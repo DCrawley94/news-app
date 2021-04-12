@@ -31,7 +31,6 @@ class AddComment extends Component {
         addPostedComment(newComment);
       })
       .catch((err) => {
-        console.dir(err);
         this.setState({ err });
       });
   }

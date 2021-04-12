@@ -1,18 +1,20 @@
 .commentForm {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  width: 60vw;
+  background-color: #d7e3fc;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 9fr 1fr;
+  grid-template-rows: 1fr 6fr 1fr;
+  grid-template-areas:
+    'label label'
+    'input input'
+    '. submit';
+  width: auto;
 }
 
 .commentFormLabel {
+  grid-area: label;
   font-weight: bold;
 }
-
-/* .commentFormInput {
-  
-  overflow-wrap: break-word;
-} */
 
 input[type='text'] {
   width: 100%;
@@ -21,12 +23,15 @@ input[type='text'] {
   border-radius: 4px;
   box-sizing: border-box;
   resize: vertical;
+  grid-area: input;
 }
 
 .commentFormSubmit {
+  margin-top: 5px;
   padding: 10px 15px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   background-color: #abc4ff;
+  grid-area: submit;
 }

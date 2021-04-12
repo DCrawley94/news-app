@@ -72,9 +72,7 @@ class SingleArticle extends Component {
           <p>{body}</p>
         </div>
 
-        <div className={styles.articleInteraction}>
-          <Voter id={article_id} votes={votes} type="article" />
-        </div>
+        <Voter id={article_id} votes={votes} type="article" />
 
         <CommentList
           loggedIn={loggedIn}
